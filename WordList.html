@@ -1,0 +1,106 @@
+<!Doctype html>
+<html>
+		<head>
+				<meta charset="utf-8">
+				<style>
+					.word_list {
+							width:100%;
+					}
+					.word_list dd, .word_list dl, .word_list dd, .word_list li,
+					.word_list {
+							margin:0;
+							padding:0;
+					}
+					.word_list li{
+						border:1px solid black;
+						margin-bottom:2px;
+					}
+					.word_list li{
+						list-style-type:none;
+					}
+					.word_list a{
+							text-decoration:none;
+					}
+					.word_list dd{
+							display:none;
+					}
+					.word_list dt{
+							height:30px;
+							vertical-align:middle;
+							color:black;
+					}
+					.word_list dd{
+							padding: 5px 0;
+							border-top: 1px solid #7a7a7a;
+					}
+					.word_list dt{
+							text-align:center;
+					}
+				</style>
+		</head>
+		<body>
+				<ul id="word_list" class="word_list">
+						<li>
+								<dl>
+										<a href="#"><dt class="word"></dt></a>
+										<dd class="mean"></dd>
+								</dl>
+						</li>
+				</ul>
+				<script>
+				var wordList = [
+						{"word":"Apple", "mean":"사과"},
+						{"word":"Banana", "mean":"바나나"},
+						{"word":"Kiwi", "mean":"키위"}];
+				var word_list;
+				var wordTag;
+
+				function generate_toggle_function(element){
+					var target = element;
+					var toggle = false;
+
+					return function (){
+						if(toggle){
+							target.style.display = "none";
+							toggle = false;
+						}else{
+							target.style.display = "block";
+							toggle = true;
+						}
+					}
+				}
+
+				function generate_word_element(data) {
+					var word_element = wordTag.cloneNode(true);
+					var word = word_element.getElementsByClassName("word")[0];
+					var mean = word_element.getElementsByClassName("mean")[0];
+
+					word.innerHTML = data.word;
+					mean.innerHTML = data.mean;
+
+					word.onclick = generate_toggle_function(mean);
+					return word_element;
+				}
+
+				function refresh_word_list(list){
+					word_list.innerHTML = "";
+					var element;
+					for(i in list){
+						element = generate_word_element(list[i]);
+						word_list.appendChild(element);
+					}
+				}
+
+				function init() {
+					word_list = document.getElementById("word_list");
+					wordTag = word_list.getElementsByTagName("li")[0].cloneNode(true);
+					word_list.removeChild(word_list.firstChild)
+
+					refresh_word_list(wordList);
+				}
+
+				init();
+
+				</script>
+		</body>
+</html>
