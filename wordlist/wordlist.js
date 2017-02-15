@@ -31,7 +31,7 @@ function generate_word_element(data) {
 	word.innerHTML = data.word;
 	mean.innerHTML = data.mean;
 
-	word.onclick = generate_toggle_function(mean);
+	word.addEventListener("click", generate_toggle_function(mean));
 	return word_element;
 }
 
@@ -46,8 +46,8 @@ function refresh_word_list(list){
 
 function init() {
 	word_list = document.getElementById("word_list");
-	wordTag = word_list.getElementsByTagName("li")[0].cloneNode(true);
-	word_list.removeChild(word_list.firstChild)
+	wordTag = word_list.getElementsByTagName("li")[0];
+	word_list.removeChild(wordTag)
 
 	refresh_word_list(wordList);
 }
